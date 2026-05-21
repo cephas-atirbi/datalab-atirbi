@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À propos — DataLab atirbi</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero { padding: 140px 0 80px; background: var(--bg3); text-align: center; }
+    .page-hero h1 { margin-bottom: 20px; }
+    .page-hero p { font-size: 18px; color: var(--text2); max-width: 580px; margin: 0 auto; line-height: 1.8; }
+
+    /* STORY */
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .story-visual { position: relative; }
+    .story-main-card { background: linear-gradient(135deg, var(--primary), #0052CC); border-radius: var(--radius2); padding: 48px; color: white; }
+    .story-main-card h3 { color: white; font-size: 28px; margin-bottom: 16px; }
+    .story-main-card p { color: rgba(255,255,255,0.8); line-height: 1.8; }
+    .story-stat-card { position: absolute; background: white; border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow2); border: 1px solid var(--border); }
+    .ssc-1 { bottom: -20px; right: -20px; }
+    .ssc-2 { top: -20px; left: -20px; }
+    .ssc-val { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--primary); }
+    .ssc-lbl { font-size: 12px; color: var(--text3); margin-top: 2px; }
+    .story-text .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--primary); margin-bottom: 16px; }
+    .story-text h2 { margin-bottom: 20px; }
+    .story-text p { margin-bottom: 16px; line-height: 1.8; }
+
+    /* VALUES */
+    .values-section { background: var(--bg3); }
+    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .value-card { background: white; border-radius: var(--radius2); padding: 32px; text-align: center; border: 1px solid var(--border); transition: all 0.3s; }
+    .value-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .value-icon { font-size: 40px; margin-bottom: 16px; }
+    .value-name { font-size: 18px; font-weight: 700; font-family: 'Syne', sans-serif; margin-bottom: 10px; }
+    .value-desc { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+    /* TEAM */
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .team-card { background: white; border-radius: var(--radius2); overflow: hidden; border: 1px solid var(--border); transition: all 0.3s; }
+    .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow2); }
+    .team-avatar { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 64px; }
+    .team-info { padding: 24px; }
+    .team-name { font-size: 19px; font-weight: 700; font-family: 'Syne', sans-serif; margin-bottom: 4px; }
+    .team-role { font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 12px; }
+    .team-bio { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 16px; }
+    .team-skills { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    /* MILESTONES -->
+    .timeline { max-width: 700px; margin: 0 auto; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 28px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+    .timeline-item { display: flex; gap: 24px; margin-bottom: 36px; }
+    .timeline-dot { width: 56px; height: 56px; border-radius: 50%; background: white; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: var(--primary); flex-shrink: 0; position: relative; z-index: 1; }
+    .timeline-dot.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .timeline-content { padding-top: 12px; }
+    .timeline-year { font-size: 12px; font-weight: 700; color: var(--primary); letter-spacing: 2px; margin-bottom: 4px; }
+    .timeline-title { font-size: 17px; font-weight: 700; font-family: 'Syne', sans-serif; margin-bottom: 6px; }
+    .timeline-desc { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+    /* PARTNERS -->
+    .partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .partner-card { background: white; border-radius: var(--radius); padding: 24px; text-align: center; border: 1px solid var(--border); }
+    .partner-icon { font-size: 32px; margin-bottom: 10px; }
+    .partner-name { font-size: 14px; font-weight: 600; }
+    .partner-type { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+    @media (max-width: 1024px) {
+      .story-grid { grid-template-columns: 1fr; }
+      .story-visual { display: none; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .partners-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .values-grid, .team-grid, .partners-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">DataLab <span class="accent">atirbi</span></a>
+    <ul class="nav-menu">
+      <li><a href="index.html" data-i18n="nav_home">Accueil</a></li>
+      <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+      <li><a href="about.html" data-i18n="nav_about">À propos</a></li>
+      <li><a href="invoice.html" data-i18n="nav_invoice">Facturation</a></li>
+      <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="lang-toggle" onclick="toggleLang()">EN</button>
+      <a href="contact.html" class="btn nav-cta">Contact</a>
+      <div class="nav-hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="badge badge-green badge-dot" style="margin-bottom:20px">Notre histoire</span>
+    <h1>À propos de <span style="color:var(--primary)">DataLab atirbi</span></h1>
+    <p>Une startup camerounaise née de la conviction que la data peut transformer chaque organisation, quelle que soit sa taille.</p>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="section">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-visual">
+        <div class="story-main-card">
+          <h3>Notre Mission</h3>
+          <p>Rendre l'analyse de données accessible et actionnable pour chaque organisation africaine. Nous croyons que derrière chaque décision de qualité, il y a une donnée bien analysée.</p>
+        </div>
+        <div class="story-stat-card ssc-1">
+          <div class="ssc-val">+100</div>
+          <div class="ssc-lbl">Clients satisfaits</div>
+        </div>
+        <div class="story-stat-card ssc-2">
+          <div class="ssc-val">10+</div>
+          <div class="ssc-lbl">Pays servis</div>
+        </div>
+      </div>
+      <div class="story-text reveal">
+        <div class="eyebrow">Notre histoire</div>
+        <h2>Nés de la <span style="color:var(--primary)">passion</span> pour la data</h2>
+        <p>DataLab atirbi est née à Ngaoundéré, au cœur du Cameroun, avec une ambition simple mais puissante : transformer la façon dont les organisations africaines utilisent leurs données.</p>
+        <p>Fondée par Cephas Atirbi, la startup a rapidement évolué pour devenir un partenaire de confiance pour les universités, ONG, entreprises et institutions publiques de la région et au-delà.</p>
+        <p>Aujourd'hui, nous combinons expertise technique locale, outils internationaux de pointe et intelligence artificielle pour offrir des services de data analytics et digital qui font vraiment la différence.</p>
+        <div style="display:flex;gap:16px;margin-top:28px;flex-wrap:wrap">
+          <div style="text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--primary)" data-counter data-target="100" data-suffix="+">100+</div>
+            <div style="font-size:13px;color:var(--text2)">Clients</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--secondary)" data-counter data-target="6" data-suffix="">6</div>
+            <div style="font-size:13px;color:var(--text2)">Services</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--accent)" data-counter data-target="10" data-suffix="+">10+</div>
+            <div style="font-size:13px;color:var(--text2)">Pays</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--purple)" data-counter data-target="5" data-suffix=" ans">5 ans</div>
+            <div style="font-size:13px;color:var(--text2)">Expérience</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section values-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Ce qui nous guide</div>
+      <h2 class="section-title">Nos <span class="highlight">Valeurs</span></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon">🎯</div>
+        <div class="value-name">Rigueur</div>
+        <div class="value-desc">Chaque analyse est vérifiée, chaque chiffre validé. Nous ne livrons que des résultats fiables et reproductibles.</div>
+      </div>
+      <div class="value-card reveal delay-1">
+        <div class="value-icon">🤝</div>
+        <div class="value-name">Proximité</div>
+        <div class="value-desc">Nous nous impliquons dans vos projets comme si c'était les nôtres. Votre succès est notre succès.</div>
+      </div>
+      <div class="value-card reveal delay-2">
+        <div class="value-icon">💡</div>
+        <div class="value-name">Innovation</div>
+        <div class="value-desc">Nous utilisons les meilleurs outils et intégrons l'IA pour vous offrir des solutions toujours plus efficaces.</div>
+      </div>
+      <div class="value-card reveal delay-3">
+        <div class="value-icon">🌍</div>
+        <div class="value-name">Impact</div>
+        <div class="value-desc">Nous visons des résultats concrets qui améliorent vraiment la prise de décision et la performance de vos organisations.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">L'équipe</div>
+      <h2 class="section-title">Les personnes <span class="highlight-green">derrière DataLab</span></h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#EBF4FF,#DBEAFE)">👨‍💼</div>
+        <div class="team-info">
+          <div class="team-name">Cephas Atirbi</div>
+          <div class="team-role">Fondateur & Directeur</div>
+          <div class="team-bio">Expert en data analytics et services digitaux avec plus de 5 ans d'expérience au Cameroun et en Afrique centrale.</div>
+          <div class="team-skills">
+            <span class="chip">Python</span><span class="chip">Power BI</span><span class="chip">GIS</span><span class="chip">IA</span>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal delay-1">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#E6FBF4,#D1FAE5)">👩‍💻</div>
+        <div class="team-info">
+          <div class="team-name">Équipe Data</div>
+          <div class="team-role">Analystes de données</div>
+          <div class="team-bio">Spécialistes en traitement statistique, économétrie et visualisation de données pour tous secteurs.</div>
+          <div class="team-skills">
+            <span class="chip">R</span><span class="chip">SPSS</span><span class="chip">Excel</span><span class="chip">Stata</span>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal delay-2">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#FFF0EB,#FFEDD5)">🗺️</div>
+        <div class="team-info">
+          <div class="team-name">Équipe GIS</div>
+          <div class="team-role">Géomaticiens & Cartographes</div>
+          <div class="team-bio">Experts en cartographie, analyse spatiale et collecte de données terrain avec GPS et outils SIG.</div>
+          <div class="team-skills">
+            <span class="chip">QGIS</span><span class="chip">ArcGIS</span><span class="chip">GPS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <p style="font-size:15px;color:var(--text2);margin-bottom:20px">Rejoignez notre équipe en croissance</p>
+      <a href="contact.html" class="btn btn-outline">Candidature spontanée →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" style="background:var(--bg3)">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Notre parcours</div>
+      <h2 class="section-title">Les grandes <span class="highlight">étapes</span></h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot">2020</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2020</div>
+          <div class="timeline-title">Création de DataLab atirbi</div>
+          <div class="timeline-desc">Lancement de la startup à Ngaoundéré avec les premiers services d'analyse de données pour les universités locales.</div>
+        </div>
+      </div>
+      <div class="timeline-item reveal delay-1">
+        <div class="timeline-dot">2021</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2021</div>
+          <div class="timeline-title">Expansion GIS & Terrain</div>
+          <div class="timeline-desc">Ajout des services de cartographie GIS et premières missions terrain pour ONG et projets de développement.</div>
+        </div>
+      </div>
+      <div class="timeline-item reveal delay-2">
+        <div class="timeline-dot">2023</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2023</div>
+          <div class="timeline-title">Digitalisation & Automatisation</div>
+          <div class="timeline-desc">Lancement des services digitaux et intégration des outils d'automatisation Power Automate pour les clients.</div>
+        </div>
+      </div>
+      <div class="timeline-item reveal delay-3">
+        <div class="timeline-dot active">2025</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2025 — Maintenant</div>
+          <div class="timeline-title">Intelligence Artificielle</div>
+          <div class="timeline-desc">Intégration de l'IA (Claude) dans tous nos services. Lancement de datalab.atirbi.com et expansion internationale.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTENAIRES -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Nos clients & partenaires</div>
+      <h2 class="section-title">Ils nous font <span class="highlight">confiance</span></h2>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card reveal"><div class="partner-icon">🏫</div><div class="partner-name">Universités</div><div class="partner-type">Cameroun & Afrique centrale</div></div>
+      <div class="partner-card reveal delay-1"><div class="partner-icon">🌍</div><div class="partner-name">ONG Internationales</div><div class="partner-type">Projets de développement</div></div>
+      <div class="partner-card reveal delay-2"><div class="partner-icon">🏛️</div><div class="partner-name">Institutions publiques</div><div class="partner-type">Administrations & Mairies</div></div>
+      <div class="partner-card reveal delay-3"><div class="partner-icon">🏢</div><div class="partner-name">Entreprises privées</div><div class="partner-type">PME & Startups</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--dark);padding:80px 0;text-align:center;color:white">
+  <div class="container reveal">
+    <h2 style="color:white;margin-bottom:16px">Construisons quelque chose ensemble</h2>
+    <p style="color:rgba(255,255,255,0.6);font-size:17px;margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto">Rejoignez les organisations qui font confiance à DataLab atirbi pour valoriser leurs données.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="contact.html" class="btn btn-primary btn-lg">Nous contacter</a>
+      <a href="services.html" class="btn" style="background:rgba(255,255,255,0.1);color:white;font-size:17px;padding:18px 44px">Voir nos services</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <p>© 2026 DataLab atirbi — Ngaoundéré, Cameroun</p>
+      <div class="footer-socials">
+        <a href="#" title="Facebook">f</a>
+        <a href="#" title="LinkedIn">in</a>
+        <a href="#" title="WhatsApp">w</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" class="toast"></div>
+<script src="js/main.js"></script>
+</body>
+</html>

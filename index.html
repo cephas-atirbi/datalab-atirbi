@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataLab atirbi — Data Analytics & Digital Services</title>
+  <meta name="description" content="DataLab atirbi — Startup camerounaise spécialisée en analyse de données, GIS, IA et services digitaux. Ngaoundéré, Cameroun.">
+  <meta property="og:title" content="DataLab atirbi">
+  <meta property="og:description" content="Analyse de données, GIS, IA et Digital — Cameroun & International">
+  <meta property="og:image" content="assets/og-image.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ---- HERO ---- */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 0 80px;
+      position: relative; overflow: hidden;
+      background: var(--bg);
+    }
+    .hero-blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: 0.15; pointer-events: none;
+    }
+    .blob-1 { width: 600px; height: 600px; background: var(--primary); top: -100px; right: -200px; }
+    .blob-2 { width: 400px; height: 400px; background: var(--secondary); bottom: -100px; left: -100px; }
+    .blob-3 { width: 300px; height: 300px; background: var(--accent); top: 30%; left: 40%; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; }
+    .hero-eyebrow::before { content: ''; width: 32px; height: 2px; background: var(--primary); }
+    .hero-title { margin-bottom: 24px; }
+    .hero-title .line2 { color: var(--primary); }
+    .hero-sub { font-size: 18px; line-height: 1.8; color: var(--text2); margin-bottom: 40px; max-width: 480px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
+    .hero-trust { display: flex; gap: 32px; }
+    .trust-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text2); font-weight: 500; }
+    .trust-item::before { content: '✓'; width: 20px; height: 20px; background: var(--secondary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+
+    /* Hero Visual */
+    .hero-visual { position: relative; }
+    .hero-card-main {
+      background: var(--bg2); border-radius: 24px; padding: 32px;
+      box-shadow: var(--shadow2); border: 1px solid var(--border);
+    }
+    .chart-bars { display: flex; align-items: flex-end; gap: 10px; height: 120px; margin: 20px 0; }
+    .bar { border-radius: 6px 6px 0 0; transition: height 0.5s ease; }
+    .b1 { width: 32px; height: 60%; background: #EBF4FF; }
+    .b2 { width: 32px; height: 85%; background: var(--primary); }
+    .b3 { width: 32px; height: 45%; background: #EBF4FF; }
+    .b4 { width: 32px; height: 100%; background: var(--secondary); }
+    .b5 { width: 32px; height: 70%; background: #EBF4FF; }
+    .b6 { width: 32px; height: 90%; background: var(--accent); }
+    .chart-label { font-size: 13px; color: var(--text3); margin-bottom: 8px; }
+    .chart-value { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); }
+    .chart-change { font-size: 13px; color: var(--secondary); font-weight: 600; }
+
+    .hero-card-sm {
+      position: absolute; background: var(--bg2);
+      border-radius: 16px; padding: 16px 20px;
+      box-shadow: var(--shadow); border: 1px solid var(--border);
+    }
+    .card-sm-1 { top: -20px; right: -20px; }
+    .card-sm-2 { bottom: 20px; left: -30px; }
+    .card-sm-icon { font-size: 24px; margin-bottom: 6px; }
+    .card-sm-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+    .card-sm-lbl { font-size: 12px; color: var(--text3); }
+
+    /* ---- STATS ---- */
+    .stats-bar { background: var(--dark); padding: 48px 0; }
+    .stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+    .stat-item { text-align: center; padding: 0 40px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; color: white; line-height: 1; }
+    .stat-num span { color: var(--primary); }
+    .stat-label { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 8px; }
+
+    /* ---- SERVICES PREVIEW ---- */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .service-card { background: var(--bg2); border-radius: var(--radius2); padding: 32px; border: 1.5px solid var(--border); transition: all 0.3s ease; cursor: pointer; }
+    .service-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: var(--shadow2); }
+    .service-card:hover .service-arrow { opacity: 1; transform: translateX(0); }
+    .service-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; }
+    .service-name { font-size: 19px; font-weight: 700; font-family: 'Syne', sans-serif; margin-bottom: 10px; }
+    .service-desc { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 16px; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .service-arrow { font-size: 18px; color: var(--primary); opacity: 0; transform: translateX(-8px); transition: all 0.3s; }
+
+    /* ---- PROCESS ---- */
+    .process-section { background: var(--bg3); }
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .process-grid::before { content: ''; position: absolute; top: 28px; left: 12.5%; right: 12.5%; height: 2px; background: var(--border); z-index: 0; }
+    .process-step { text-align: center; padding: 0 20px; position: relative; }
+    .process-num { width: 56px; height: 56px; border-radius: 50%; background: var(--bg2); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--primary); position: relative; z-index: 1; transition: all 0.3s; }
+    .process-step:hover .process-num { background: var(--primary); color: white; border-color: var(--primary); }
+    .process-step-name { font-size: 16px; font-weight: 700; font-family: 'Syne', sans-serif; margin-bottom: 8px; }
+    .process-step-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+    /* ---- CLIENTS ---- */
+    .clients-section { background: var(--bg2); }
+    .clients-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .client-card { background: var(--bg3); border-radius: var(--radius); padding: 24px; text-align: center; border: 1px solid var(--border); transition: all 0.3s; }
+    .client-card:hover { border-color: var(--primary); background: white; box-shadow: var(--shadow); }
+    .client-icon { font-size: 32px; margin-bottom: 12px; }
+    .client-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .client-type { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+    /* ---- CTA SECTION ---- */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary) 0%, #0052CC 50%, var(--purple) 100%);
+      padding: 100px 0; text-align: center; color: white;
+    }
+    .cta-section h2 { color: white; margin-bottom: 20px; }
+    .cta-section p { color: rgba(255,255,255,0.8); font-size: 18px; margin-bottom: 40px; }
+    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { background: white; color: var(--primary); }
+    .btn-white:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); }
+    .btn-outline-white { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.5); }
+    .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .stat-item { border-right: none; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .clients-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .hero-trust { flex-direction: column; gap: 12px; }
+      .services-grid, .clients-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">DataLab <span class="accent">atirbi</span></a>
+    <ul class="nav-menu">
+      <li><a href="index.html" data-i18n="nav_home">Accueil</a></li>
+      <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+      <li><a href="about.html" data-i18n="nav_about">À propos</a></li>
+      <li><a href="invoice.html" data-i18n="nav_invoice">Facturation</a></li>
+      <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="lang-toggle" onclick="toggleLang()">EN</button>
+      <a href="contact.html" class="btn nav-cta" data-i18n="nav_cta">Démarrer un projet</a>
+      <div class="nav-hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob blob-1"></div>
+  <div class="hero-blob blob-2"></div>
+  <div class="hero-blob blob-3"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow" data-i18n="hero_tag">Data Analytics & Digital Services</div>
+        <h1 class="hero-title animate-fade-up">
+          Vos données,<br>
+          <span class="line2" data-i18n="hero_title">notre expertise.</span>
+        </h1>
+        <p class="hero-sub animate-fade-up delay-2" data-i18n="hero_sub">
+          Nous transformons vos données brutes en décisions stratégiques puissantes. Analyse, GIS, IA et services digitaux pour universités, ONG et entreprises.
+        </p>
+        <div class="hero-actions animate-fade-up delay-3">
+          <a href="contact.html" class="btn btn-primary btn-lg" data-i18n="hero_btn1">Démarrer un projet</a>
+          <a href="services.html" class="btn btn-outline btn-lg" data-i18n="hero_btn2">Voir nos services</a>
+        </div>
+        <div class="hero-trust animate-fade-up delay-4">
+          <span class="trust-item">Devis gratuit</span>
+          <span class="trust-item">Réponse 24h</span>
+          <span class="trust-item">100% professionnel</span>
+        </div>
+      </div>
+      <div class="hero-visual animate-fade-up delay-2">
+        <div class="hero-card-main">
+          <div class="chart-label">Évolution des performances client</div>
+          <div class="chart-value">+142% <span class="chart-change">↑ ce trimestre</span></div>
+          <div class="chart-bars">
+            <div class="bar b1"></div>
+            <div class="bar b2"></div>
+            <div class="bar b3"></div>
+            <div class="bar b4"></div>
+            <div class="bar b5"></div>
+            <div class="bar b6"></div>
+          </div>
+        </div>
+        <div class="hero-card-sm card-sm-1">
+          <div class="card-sm-icon">📊</div>
+          <div class="card-sm-val" data-counter data-target="150" data-suffix="+">150+</div>
+          <div class="card-sm-lbl">Rapports générés</div>
+        </div>
+        <div class="hero-card-sm card-sm-2">
+          <div class="card-sm-icon">🌍</div>
+          <div class="card-sm-val">10+</div>
+          <div class="card-sm-lbl">Pays servis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item reveal">
+        <div class="stat-num"><span data-counter data-target="100" data-suffix="+">100+</span></div>
+        <div class="stat-label">Clients satisfaits</div>
+      </div>
+      <div class="stat-item reveal delay-1">
+        <div class="stat-num"><span data-counter data-target="6" data-suffix="">6</span></div>
+        <div class="stat-label">Services offerts</div>
+      </div>
+      <div class="stat-item reveal delay-2">
+        <div class="stat-num"><span data-counter data-target="10" data-suffix="+">10+</span></div>
+        <div class="stat-label">Pays desservis</div>
+      </div>
+      <div class="stat-item reveal delay-3">
+        <div class="stat-num"><span data-counter data-target="5" data-suffix=" ans">5 ans</span></div>
+        <div class="stat-label">D'expérience</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES PREVIEW -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag" data-i18n="services_tag">Ce que nous faisons</div>
+      <h2 class="section-title">Nos <span class="highlight">Services</span></h2>
+      <p class="section-desc">Solutions complètes en data, digital et formation pour votre organisation</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon" style="background:#EBF4FF">📊</div>
+        <div class="service-name">Analyse de données</div>
+        <div class="service-desc">Nettoyage, traitement statistique, rapports automatisés et tableaux de bord interactifs pour piloter vos décisions.</div>
+        <div class="service-tags">
+          <span class="chip">Python</span><span class="chip">Power BI</span><span class="chip">Excel</span>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal delay-1">
+        <div class="service-icon" style="background:#E6FBF4">🗺️</div>
+        <div class="service-name">Cartographie GIS</div>
+        <div class="service-desc">Cartes thématiques, analyse spatiale et SIG pour vos projets terrain et études géographiques.</div>
+        <div class="service-tags">
+          <span class="chip">QGIS</span><span class="chip">ArcGIS</span><span class="chip">GPS</span>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal delay-2">
+        <div class="service-icon" style="background:#FFF0EB">💻</div>
+        <div class="service-name">Développement Digital</div>
+        <div class="service-desc">Applications web, outils de collecte, APIs et automatisation de vos processus métier.</div>
+        <div class="service-tags">
+          <span class="chip">Web App</span><span class="chip">API</span><span class="chip">Automation</span>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon" style="background:#F3EEFF">🤖</div>
+        <div class="service-name">Intelligence Artificielle</div>
+        <div class="service-desc">Intégration IA, rapports automatisés, analyses prédictives et chatbots intelligents pour votre organisation.</div>
+        <div class="service-tags">
+          <span class="chip">Claude AI</span><span class="chip">ML</span><span class="chip">Prédiction</span>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal delay-1">
+        <div class="service-icon" style="background:#FFF8E1">🎓</div>
+        <div class="service-name">Formation</div>
+        <div class="service-desc">Sessions de formation en data analyse, outils BI, Excel avancé et SIG pour vos équipes.</div>
+        <div class="service-tags">
+          <span class="chip">Excel</span><span class="chip">Power BI</span><span class="chip">Python</span>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal delay-2">
+        <div class="service-icon" style="background:#E6FBF4">📋</div>
+        <div class="service-name">Plans d'affaires</div>
+        <div class="service-desc">Élaboration de business plans complets, études de faisabilité et modèles financiers pour startups et PME.</div>
+        <div class="service-tags">
+          <span class="chip">Business Plan</span><span class="chip">Étude marché</span>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:48px">
+      <a href="services.html" class="btn btn-outline">Voir tous les services →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section process-section" id="process">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Comment ça marche</div>
+      <h2 class="section-title">Notre <span class="highlight-green">Processus</span></h2>
+      <p class="section-desc">4 étapes simples pour transformer vos données en résultats</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="process-num">01</div>
+        <div class="process-step-name">Consultation</div>
+        <div class="process-step-desc">Échange gratuit pour comprendre vos besoins et définir les objectifs</div>
+      </div>
+      <div class="process-step reveal delay-1">
+        <div class="process-num">02</div>
+        <div class="process-step-name">Devis</div>
+        <div class="process-step-desc">Proposition détaillée avec délais, livrables et tarification transparente</div>
+      </div>
+      <div class="process-step reveal delay-2">
+        <div class="process-num">03</div>
+        <div class="process-step-name">Analyse</div>
+        <div class="process-step-desc">Traitement de vos données avec les meilleurs outils adaptés</div>
+      </div>
+      <div class="process-step reveal delay-3">
+        <div class="process-num">04</div>
+        <div class="process-step-name">Livraison</div>
+        <div class="process-step-desc">Rapport final, présentation et support post-livraison inclus</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS TYPES -->
+<section class="section clients-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Nos clients</div>
+      <h2 class="section-title">Qui nous <span class="highlight">accompagnons</span></h2>
+    </div>
+    <div class="clients-grid">
+      <div class="client-card reveal"><div class="client-icon">🏫</div><div class="client-name">Universités & Écoles</div><div class="client-type">Recherche académique</div></div>
+      <div class="client-card reveal delay-1"><div class="client-icon">🌍</div><div class="client-name">ONG & Projets</div><div class="client-type">Développement international</div></div>
+      <div class="client-card reveal delay-2"><div class="client-icon">🏢</div><div class="client-name">Entreprises & PME</div><div class="client-type">Secteur privé</div></div>
+      <div class="client-card reveal delay-3"><div class="client-icon">🏛️</div><div class="client-name">Institutions publiques</div><div class="client-type">Administration & Mairies</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="reveal">
+      <h2>Prêt à valoriser vos données ?</h2>
+      <p>Consultation gratuite — Réponse sous 24h — Devis sans engagement</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-white btn-lg">Démarrer maintenant</a>
+        <a href="services.html" class="btn btn-outline-white btn-lg">Découvrir nos services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">DataLab <span>atirbi</span></div>
+        <p>Startup camerounaise spécialisée en analyse de données, GIS, IA et services digitaux. Nous transformons vos données en décisions.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="services.html">Analyse de données</a></li>
+          <li><a href="services.html">Cartographie GIS</a></li>
+          <li><a href="services.html">Développement digital</a></li>
+          <li><a href="services.html">Intelligence Artificielle</a></li>
+          <li><a href="services.html">Formation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Liens</h5>
+        <ul>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="invoice.html">Facturation</a></li>
+          <li><a href="https://atirbi.com">atirbi.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:contact@atirbi.com">contact@atirbi.com</a></li>
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Ngaoundéré, Cameroun</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footer_copy">© 2026 DataLab atirbi — Ngaoundéré, Cameroun. Tous droits réservés.</p>
+      <div class="footer-socials">
+        <a href="#" title="Facebook">f</a>
+        <a href="#" title="LinkedIn">in</a>
+        <a href="#" title="WhatsApp">w</a>
+        <a href="#" title="Telegram">t</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" class="toast"></div>
+<script src="js/main.js"></script>
+</body>
+</html>

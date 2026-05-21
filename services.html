@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — DataLab atirbi</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero { padding: 140px 0 80px; background: linear-gradient(135deg, #f7f5f2 0%, #eef0f4 100%); }
+    .page-hero .container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .hero-left h1 { margin-bottom: 20px; }
+    .hero-left p { font-size: 18px; color: var(--text2); line-height: 1.8; margin-bottom: 32px; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .pill { padding: 8px 16px; background: white; border: 1px solid var(--border); border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--text2); }
+    .hero-right { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .mini-card { background: white; border-radius: 16px; padding: 20px; border: 1px solid var(--border); text-align: center; box-shadow: var(--shadow); }
+    .mini-card .icon { font-size: 28px; margin-bottom: 8px; }
+    .mini-card .name { font-size: 13px; font-weight: 600; color: var(--text); }
+
+    /* FILTER TABS */
+    .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 48px; }
+    .filter-tab { padding: 10px 22px; border-radius: 20px; border: 1.5px solid var(--border); background: white; font-size: 14px; font-weight: 500; color: var(--text2); cursor: pointer; transition: all 0.2s; }
+    .filter-tab:hover, .filter-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+    /* SERVICE CARDS */
+    .services-full-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .service-full-card { background: white; border-radius: var(--radius2); border: 1.5px solid var(--border); overflow: hidden; transition: all 0.3s; }
+    .service-full-card:hover { transform: translateY(-6px); box-shadow: var(--shadow2); border-color: transparent; }
+    .card-header { padding: 28px 28px 20px; }
+    .card-header-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+    .card-icon-lg { width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+    .card-price { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--primary); background: #ebf4ff; padding: 4px 10px; border-radius: 8px; }
+    .card-name { font-size: 22px; font-weight: 700; font-family: 'Syne', sans-serif; margin-bottom: 10px; }
+    .card-desc { font-size: 14px; color: var(--text2); line-height: 1.7; }
+    .card-body { padding: 0 28px 28px; }
+    .feature-list { margin: 16px 0; }
+    .feature-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 14px; color: var(--text); }
+    .feature-item::before { content: '✓'; width: 18px; height: 18px; background: var(--secondary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+    .tools-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; }
+    .card-footer { border-top: 1px solid var(--border); padding-top: 20px; display: flex; gap: 10px; }
+
+    /* PRICING */
+    .pricing-section { background: var(--bg3); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+    .pricing-card { background: white; border-radius: var(--radius2); padding: 36px; border: 1.5px solid var(--border); text-align: center; transition: all 0.3s; }
+    .pricing-card.featured { border-color: var(--primary); transform: scale(1.04); box-shadow: var(--shadow2); position: relative; }
+    .pricing-card.featured::before { content: 'Populaire'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; font-size: 11px; font-weight: 700; padding: 4px 16px; border-radius: 20px; letter-spacing: 1px; }
+    .pricing-name { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .pricing-price { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; color: var(--primary); margin: 16px 0 4px; line-height: 1; }
+    .pricing-unit { font-size: 13px; color: var(--text3); margin-bottom: 24px; }
+    .pricing-features { text-align: left; margin-bottom: 28px; }
+    .pricing-feature { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 14px; border-bottom: 1px solid var(--bg3); }
+    .pricing-feature:last-child { border-bottom: none; }
+    .pricing-feature .check { color: var(--secondary); font-weight: 700; }
+    .pricing-feature .cross { color: var(--text3); }
+
+    /* FAQ */
+    .faq-section { background: white; }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 900px; margin: 0 auto; }
+    .faq-item { background: var(--bg3); border-radius: var(--radius); padding: 24px; cursor: pointer; transition: all 0.2s; }
+    .faq-item:hover { background: var(--bg2); box-shadow: var(--shadow); }
+    .faq-q { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .faq-a { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+    @media (max-width: 1024px) {
+      .page-hero .container { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .services-full-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .pricing-card.featured { transform: scale(1); }
+    }
+    @media (max-width: 768px) {
+      .services-full-grid { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">DataLab <span class="accent">atirbi</span></a>
+    <ul class="nav-menu">
+      <li><a href="index.html" data-i18n="nav_home">Accueil</a></li>
+      <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+      <li><a href="about.html" data-i18n="nav_about">À propos</a></li>
+      <li><a href="invoice.html" data-i18n="nav_invoice">Facturation</a></li>
+      <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="lang-toggle" onclick="toggleLang()">EN</button>
+      <a href="contact.html" class="btn nav-cta">Devis gratuit</a>
+      <div class="nav-hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="hero-left">
+      <span class="badge badge-blue badge-dot" style="margin-bottom:20px">6 services disponibles</span>
+      <h1>Nos <span style="color:var(--primary)">Services</span></h1>
+      <p>Solutions complètes en data analytics, GIS, développement digital et formation pour transformer votre organisation.</p>
+      <div class="hero-pills">
+        <span class="pill">📊 Data Analytics</span>
+        <span class="pill">🗺️ GIS & Cartographie</span>
+        <span class="pill">💻 Digital</span>
+        <span class="pill">🤖 IA</span>
+        <span class="pill">🎓 Formation</span>
+        <span class="pill">📋 Business Plan</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="mini-card"><div class="icon">📊</div><div class="name">Analyse</div></div>
+      <div class="mini-card"><div class="icon">🗺️</div><div class="name">GIS</div></div>
+      <div class="mini-card"><div class="icon">🤖</div><div class="name">IA</div></div>
+      <div class="mini-card"><div class="icon">💻</div><div class="name">Digital</div></div>
+      <div class="mini-card"><div class="icon">🎓</div><div class="name">Formation</div></div>
+      <div class="mini-card"><div class="icon">📋</div><div class="name">Business</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterServices('all', this)">Tous les services</button>
+      <button class="filter-tab" onclick="filterServices('data', this)">Data & IA</button>
+      <button class="filter-tab" onclick="filterServices('geo', this)">GIS & Terrain</button>
+      <button class="filter-tab" onclick="filterServices('digital', this)">Digital</button>
+      <button class="filter-tab" onclick="filterServices('formation', this)">Formation</button>
+    </div>
+
+    <div class="services-full-grid" id="servicesGrid">
+
+      <!-- Analyse de données -->
+      <div class="service-full-card reveal" data-cat="data">
+        <div class="card-header">
+          <div class="card-header-top">
+            <div class="card-icon-lg" style="background:#EBF4FF">📊</div>
+            <span class="card-price">À partir de 50 000 FCFA</span>
+          </div>
+          <div class="card-name">Analyse de données</div>
+          <div class="card-desc">Nettoyage, traitement statistique et visualisation de vos données pour des décisions éclairées.</div>
+        </div>
+        <div class="card-body">
+          <div class="feature-list">
+            <div class="feature-item">Nettoyage et validation des données</div>
+            <div class="feature-item">Analyse statistique descriptive et inférentielle</div>
+            <div class="feature-item">Tableaux de bord interactifs Power BI</div>
+            <div class="feature-item">Rapports automatisés Word/PDF</div>
+            <div class="feature-item">Visualisations et graphiques professionnels</div>
+            <div class="feature-item">Modèles économétriques (OLS, DiD, PSM)</div>
+          </div>
+          <div class="tools-row">
+            <span class="chip">Python</span><span class="chip">R</span><span class="chip">Power BI</span>
+            <span class="chip">Excel</span><span class="chip">SPSS</span><span class="chip">Stata</span>
+          </div>
+          <div class="card-footer">
+            <a href="contact.html" class="btn btn-primary btn-sm">Demander un devis</a>
+            <a href="contact.html" class="btn btn-outline btn-sm">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- GIS -->
+      <div class="service-full-card reveal delay-1" data-cat="geo">
+        <div class="card-header">
+          <div class="card-header-top">
+            <div class="card-icon-lg" style="background:#E6FBF4">🗺️</div>
+            <span class="card-price">À partir de 75 000 FCFA</span>
+          </div>
+          <div class="card-name">Cartographie GIS</div>
+          <div class="card-desc">Cartes thématiques et analyse spatiale pour vos projets terrain et études géographiques.</div>
+        </div>
+        <div class="card-body">
+          <div class="feature-list">
+            <div class="feature-item">Cartes thématiques professionnelles</div>
+            <div class="feature-item">Collecte GPS terrain et géoréférencement</div>
+            <div class="feature-item">Analyse spatiale et zonage</div>
+            <div class="feature-item">Cartographie participative</div>
+            <div class="feature-item">Atlas et rapports cartographiques</div>
+            <div class="feature-item">Intégration données satellitaires</div>
+          </div>
+          <div class="tools-row">
+            <span class="chip">QGIS</span><span class="chip">ArcGIS</span><span class="chip">Google Earth</span>
+            <span class="chip">GPS</span><span class="chip">KoBoToolbox</span>
+          </div>
+          <div class="card-footer">
+            <a href="contact.html" class="btn btn-secondary btn-sm">Demander un devis</a>
+            <a href="contact.html" class="btn btn-outline btn-sm">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Digital -->
+      <div class="service-full-card reveal delay-2" data-cat="digital">
+        <div class="card-header">
+          <div class="card-header-top">
+            <div class="card-icon-lg" style="background:#FFF0EB">💻</div>
+            <span class="card-price">À partir de 100 000 FCFA</span>
+          </div>
+          <div class="card-name">Développement Digital</div>
+          <div class="card-desc">Applications web, APIs, outils de collecte et automatisation de vos processus métier.</div>
+        </div>
+        <div class="card-body">
+          <div class="feature-list">
+            <div class="feature-item">Sites web et applications professionnels</div>
+            <div class="feature-item">Outils de collecte KoBoToolbox / ODK</div>
+            <div class="feature-item">APIs REST et intégrations</div>
+            <div class="feature-item">Systèmes de facturation automatisés</div>
+            <div class="feature-item">Automatisation Power Automate</div>
+            <div class="feature-item">Tableaux de bord en ligne</div>
+          </div>
+          <div class="tools-row">
+            <span class="chip">HTML/CSS/JS</span><span class="chip">Python</span>
+            <span class="chip">FastAPI</span><span class="chip">Power Automate</span>
+          </div>
+          <div class="card-footer">
+            <a href="contact.html" class="btn btn-accent btn-sm">Demander un devis</a>
+            <a href="contact.html" class="btn btn-outline btn-sm">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- IA -->
+      <div class="service-full-card reveal" data-cat="data">
+        <div class="card-header">
+          <div class="card-header-top">
+            <div class="card-icon-lg" style="background:#F3EEFF">🤖</div>
+            <span class="card-price">À partir de 80 000 FCFA</span>
+          </div>
+          <div class="card-name">Intelligence Artificielle</div>
+          <div class="card-desc">Intégration de l'IA dans vos processus pour automatiser et améliorer vos analyses.</div>
+        </div>
+        <div class="card-body">
+          <div class="feature-list">
+            <div class="feature-item">Rapports automatisés par IA (Claude)</div>
+            <div class="feature-item">Analyse prédictive et machine learning</div>
+            <div class="feature-item">Chatbots intelligents pour votre org</div>
+            <div class="feature-item">Classification et traitement texte NLP</div>
+            <div class="feature-item">Pipelines de données automatisés</div>
+            <div class="feature-item">Intégration API IA dans vos outils</div>
+          </div>
+          <div class="tools-row">
+            <span class="chip">Claude AI</span><span class="chip">Python ML</span>
+            <span class="chip">Power Automate</span><span class="chip">Azure</span>
+          </div>
+          <div class="card-footer">
+            <a href="contact.html" class="btn btn-dark btn-sm">Demander un devis</a>
+            <a href="contact.html" class="btn btn-outline btn-sm">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formation -->
+      <div class="service-full-card reveal delay-1" data-cat="formation">
+        <div class="card-header">
+          <div class="card-header-top">
+            <div class="card-icon-lg" style="background:#FFF8E1">🎓</div>
+            <span class="card-price">À partir de 30 000 FCFA/jour</span>
+          </div>
+          <div class="card-name">Formation professionnelle</div>
+          <div class="card-desc">Sessions de formation adaptées pour vos équipes et étudiants en data et digital.</div>
+        </div>
+        <div class="card-body">
+          <div class="feature-list">
+            <div class="feature-item">Excel avancé et tableaux croisés dynamiques</div>
+            <div class="feature-item">Power BI — tableaux de bord interactifs</div>
+            <div class="feature-item">Introduction à Python pour la data</div>
+            <div class="feature-item">QGIS — cartographie et SIG</div>
+            <div class="feature-item">KoBoToolbox — collecte de données terrain</div>
+            <div class="feature-item">Formations sur mesure selon vos besoins</div>
+          </div>
+          <div class="tools-row">
+            <span class="chip">En présentiel</span><span class="chip">En ligne</span>
+            <span class="chip">Sur mesure</span><span class="chip">Certification</span>
+          </div>
+          <div class="card-footer">
+            <a href="contact.html" class="btn btn-primary btn-sm">Réserver une session</a>
+            <a href="contact.html" class="btn btn-outline btn-sm">Programme</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Business Plan -->
+      <div class="service-full-card reveal delay-2" data-cat="digital">
+        <div class="card-header">
+          <div class="card-header-top">
+            <div class="card-icon-lg" style="background:#E6FBF4">📋</div>
+            <span class="card-price">À partir de 150 000 FCFA</span>
+          </div>
+          <div class="card-name">Plans d'affaires</div>
+          <div class="card-desc">Business plans complets, études de faisabilité et modèles financiers pour startups et PME.</div>
+        </div>
+        <div class="card-body">
+          <div class="feature-list">
+            <div class="feature-item">Étude de marché et analyse concurrentielle</div>
+            <div class="feature-item">Modèles financiers sur 3-5 ans</div>
+            <div class="feature-item">Stratégie marketing et commerciale</div>
+            <div class="feature-item">Plan opérationnel détaillé</div>
+            <div class="feature-item">Présentation investisseurs (pitch deck)</div>
+            <div class="feature-item">Dossiers de financement bancaire</div>
+          </div>
+          <div class="tools-row">
+            <span class="chip">Word professionnel</span><span class="chip">Excel financier</span>
+            <span class="chip">PowerPoint</span><span class="chip">IA assistée</span>
+          </div>
+          <div class="card-footer">
+            <a href="contact.html" class="btn btn-secondary btn-sm">Demander un devis</a>
+            <a href="contact.html" class="btn btn-outline btn-sm">Exemples</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Tarification</div>
+      <h2 class="section-title">Formules <span class="highlight">transparentes</span></h2>
+      <p class="section-desc">Choisissez la formule adaptée à vos besoins et votre budget</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Essentiel</div>
+        <div class="pricing-price">50K</div>
+        <div class="pricing-unit">FCFA — analyse simple</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="check">✓</span> Nettoyage de données</div>
+          <div class="pricing-feature"><span class="check">✓</span> Statistiques descriptives</div>
+          <div class="pricing-feature"><span class="check">✓</span> 1 rapport PDF</div>
+          <div class="pricing-feature"><span class="check">✓</span> Délai 5 jours</div>
+          <div class="pricing-feature"><span class="cross">–</span> Tableau de bord</div>
+          <div class="pricing-feature"><span class="cross">–</span> Formation incluse</div>
+        </div>
+        <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center">Choisir</a>
+      </div>
+      <div class="pricing-card featured reveal delay-1">
+        <div class="pricing-name">Professionnel</div>
+        <div class="pricing-price">200K</div>
+        <div class="pricing-unit">FCFA — projet complet</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="check">✓</span> Tout l'Essentiel</div>
+          <div class="pricing-feature"><span class="check">✓</span> Analyse avancée + IA</div>
+          <div class="pricing-feature"><span class="check">✓</span> Tableau de bord Power BI</div>
+          <div class="pricing-feature"><span class="check">✓</span> Rapport interactif</div>
+          <div class="pricing-feature"><span class="check">✓</span> Délai 10 jours</div>
+          <div class="pricing-feature"><span class="check">✓</span> Support 30 jours</div>
+        </div>
+        <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center">Choisir</a>
+      </div>
+      <div class="pricing-card reveal delay-2">
+        <div class="pricing-name">Entreprise</div>
+        <div class="pricing-price">Sur<br>devis</div>
+        <div class="pricing-unit">Projets complexes</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="check">✓</span> Tout le Professionnel</div>
+          <div class="pricing-feature"><span class="check">✓</span> GIS + Digital inclus</div>
+          <div class="pricing-feature"><span class="check">✓</span> Formation équipe</div>
+          <div class="pricing-feature"><span class="check">✓</span> API & automatisation</div>
+          <div class="pricing-feature"><span class="check">✓</span> Délai négociable</div>
+          <div class="pricing-feature"><span class="check">✓</span> Support 6 mois</div>
+        </div>
+        <a href="contact.html" class="btn btn-dark" style="width:100%;justify-content:center">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Questions fréquentes</div>
+      <h2 class="section-title">Vous avez des <span class="highlight-green">questions ?</span></h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item reveal"><div class="faq-q">Quels formats de données acceptez-vous ? <span>+</span></div><div class="faq-a">Nous travaillons avec Excel, CSV, PDF, bases de données SQL, données GPS, enquêtes KoBoToolbox et bien plus. Si vous avez des données, nous pouvons les analyser.</div></div>
+      <div class="faq-item reveal delay-1"><div class="faq-q">Combien de temps prend un projet ? <span>+</span></div><div class="faq-a">Selon la complexité : une analyse simple prend 3-5 jours, un tableau de bord complet 1-2 semaines, un projet GIS ou digital 2-4 semaines.</div></div>
+      <div class="faq-item reveal delay-2"><div class="faq-q">Travaillez-vous avec des ONG internationales ? <span>+</span></div><div class="faq-a">Oui, nous avons l'expérience avec les formats de rapport des ONG (UNICEF, PNUD, Banque Mondiale) et maîtrisons les indicateurs de développement international.</div></div>
+      <div class="faq-item reveal delay-3"><div class="faq-q">Comment se passe le paiement ? <span>+</span></div><div class="faq-a">Orange Money, MTN MoMo, virement bancaire ou PayPal pour les clients internationaux. Acompte 30% à la commande, solde à la livraison.</div></div>
+      <div class="faq-item reveal"><div class="faq-q">Proposez-vous des formations en ligne ? <span>+</span></div><div class="faq-a">Oui, formations disponibles en présentiel à Ngaoundéré et en ligne via Teams ou Zoom pour les clients distants et la diaspora.</div></div>
+      <div class="faq-item reveal delay-1"><div class="faq-q">Quelle est votre politique de confidentialité ? <span>+</span></div><div class="faq-a">Vos données sont strictement confidentielles. Nous signons un accord de confidentialité (NDA) sur demande pour les projets sensibles.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:linear-gradient(135deg,var(--primary),#0052CC);padding:80px 0;text-align:center;color:white">
+  <div class="container reveal">
+    <h2 style="color:white;margin-bottom:16px">Prêt à démarrer votre projet ?</h2>
+    <p style="color:rgba(255,255,255,0.8);font-size:17px;margin-bottom:36px">Consultation gratuite — Devis sous 24h — Sans engagement</p>
+    <a href="contact.html" class="btn btn-white btn-lg">Demander un devis gratuit →</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <p>© 2026 DataLab atirbi — Ngaoundéré, Cameroun</p>
+      <div class="footer-socials">
+        <a href="#" title="Facebook">f</a>
+        <a href="#" title="LinkedIn">in</a>
+        <a href="#" title="WhatsApp">w</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" class="toast"></div>
+<script src="js/main.js"></script>
+<script>
+function filterServices(cat, btn) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.service-full-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
